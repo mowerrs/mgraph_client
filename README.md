@@ -1,2 +1,2 @@
 # mgraph_client
-Microsoft Graph API Python Client
+Python Client for Microsoft Graph API 

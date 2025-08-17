@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mgraph_client"
+version = "0.0.1"
+authors = [
+  { name="Reynold Tabuena", email="reynold@rs.kiwi.nz" },
+]
+description = "Microsoft Graph API Python Client"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["requests", "msal"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/mowerrs/mgraph_client"
