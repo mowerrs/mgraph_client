@@ -1,0 +1,58 @@
+from abc import ABC, abstractmethod
+import datetime
+from typing import Any, AnyStr
+
+
+class Field(ABC):
+    def __init__(self, is_readonly: bool = True, fallback: str | None = None):
+        self.is_readonly = is_readonly
+        self.fallback = fallback
+
+    def __set_name__(self, owner, name):
+        self._name = name
+        names = name.split("_")
+        self.name = "".join([names[0]] + [i.title() for i in names[1:]])
+
+    def __get__(self, obj, objtype=None) -> Any:
+        if obj is None:
+            return self
+        try:
+            val = obj._data[self.name]
+        except KeyError:
+            if self.fallback:
+                return getattr(obj, f"_{self.fallback}", None)
+            return None
+        else:
+            return self.get_value(val)
+
+    def __set__(self, obj, value) -> None:
+        if self.is_readonly:
+            raise AttributeError(f"Attribute '{self.name}' is read-only.")
+
+    def __delete__(self, obj) -> None:
+        if self.is_readonly:
+            raise AttributeError(f"Attribute '{self.name}' is read-only.")
+
+    @abstractmethod
+    def get_value(self, *args, **kwargs) -> Any:
+        pass
+
+
+class CharField(Field):
+    def get_value(self, val: Any):
+        return str(val)
+
+
+class IntegerField(Field):
+    def get_value(self, val: str | int):
+        return int(val)
+
+
+class DateTimeField(Field):
+    def get_value(self, val: Any) -> datetime.datetime:
+        return datetime.datetime.fromisoformat(str(val))
+
+
+class BooleanField(Field):
+    def get_value(self, val: Any):
+        return bool(val)

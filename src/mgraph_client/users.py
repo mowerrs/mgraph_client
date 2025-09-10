@@ -1,4 +1,4 @@
-from .resource import SingleValueResource, MultiValueResource, ManagedAttr
+from .resources import SingleValueResource, MultiValueResource, ManagedAttr
 
 
 class Users(MultiValueResource):

@@ -1,0 +1,16 @@
+{
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "editor.formatOnSave": true,
+    "notebook.defaultFormatter": "ms-python.black-formatter",
+    "notebook.formatOnSave.enabled": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.generateWithTypeAnnotation": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.typeCheckingMode": "standard",
+    "json.format.enable": true,
+    "workbench.settings.useSplitJSON": true,
+    "[python]": {
+        "editor.defaultFormatter": null
+    }
+}

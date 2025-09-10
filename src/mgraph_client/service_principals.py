@@ -1,4 +1,4 @@
-from .resource import MultiValueResource, SingleValueResource
+from .resources import MultiValueResource, SingleValueResource
 
 
 class ServicePrincipals(MultiValueResource):

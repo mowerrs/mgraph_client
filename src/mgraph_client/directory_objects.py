@@ -1,40 +1,34 @@
-from mgraph_client.resource import SingleValueResource, MultiValueResource
+from typing import Any
+from mgraph_client.resources import Resource
 
 
-class DirectoryObjects(MultiValueResource):
+class DirectoryObjects(Resource):
 
     ITEM_CLASS = "DirectoryObject"
 
-    GET = False
-
     @property
     def relative_endpoint(self):
-        return "directoryObjects"
+        return "/directoryObjects"
 
-    def by_id(self, dir_obj_id: str):
+    def by_id(self, dir_obj_id: str) -> "DirectoryObject":
         return DirectoryObject(self._client, parent=self, dir_obj_id=dir_obj_id)
 
 
-class DirectoryObject(SingleValueResource):
-
-    GET = False
+class DirectoryObject(Resource):
 
     @property
-    def relative_endpoint(self):
-        return f"{self._parent.relative_endpoint}/{self._dir_obj_id}"
+    def relative_url(self) -> str:
+        return f"/{self._dir_obj_id}"
 
-    def _set_kwargs(self, dir_obj_id=None):
+    def _set_kwargs(self, kwargs: dict[str, Any]) -> None:
+        dir_obj_id = kwargs.get("dir_obj_id")
         if dir_obj_id is None:
             raise ValueError("Parameter is required, 'dir_obj_id'")
         self._dir_obj_id = dir_obj_id
 
 
-class Reference(SingleValueResource):
-
-    SELECT = False
-    EXPAND = False
-    GET = False
+class Reference(Resource):
 
     @property
-    def relative_endpoint(self):
-        return f"{self._parent.relative_endpoint}/$ref"
+    def relative_url(self):
+        return "/$ref"
